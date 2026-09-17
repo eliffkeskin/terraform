@@ -31,13 +31,12 @@ Traffic out: EC2 -> private route table -> NAT gateway -> IGW.
 ## File layout
 
 ```
-versions.tf    terraform and provider settings
-variables.tf   region, vpc_cidr, azs
-network.tf     VPC, subnets, IGW, NAT, route tables
-security.tf    security groups
-compute.tf     AMI lookup and EC2 instance
-alb.tf         load balancer, target group, listener
-outputs.tf     ALB DNS name
+main.tf              root: calls the two modules
+variables.tf         vpc_cidr, azs, instance_type
+outputs.tf           ALB URL
+versions.tf          terraform and provider settings
+modules/network/     VPC, subnets, IGW, NAT, route tables (outputs: vpc_id, subnet ids)
+modules/web/         security groups, EC2, ALB, target group, listener (output: alb_dns_name)
 ```
 
 ## Usage
@@ -65,3 +64,10 @@ terraform destroy
 - `aws_route_table_association` accepts either `subnet_id` or `gateway_id`, not both. The IGW belongs in the route table's `route` block.
 - ALB returned a timeout until the listener was added, then 502 until the backend became healthy. Timeout means the request never reached a listener; 502 means the ALB reached the target group but got no valid response.
 - The instance booted before the NAT gateway was available, so `user_data` failed to reach apt and nginx was never installed. Fixed with `depends_on = [aws_nat_gateway, aws_route_table_association.private]` on the instance and `terraform apply -replace=aws_instance.web`.
+- Refactored v1 (flat resources) into two local modules. Renaming a resource inside a module
+  would normally force a replacement; a `moved` block keeps the state entry and results in
+  "No changes". Left in place here as a reference.
+- Module-level `depends_on` defers every data source in that module to apply time whenever the
+  upstream module has a pending change, which turned a harmless route table update into an
+  instance replacement (AMI became "known after apply"). Known issue, to be fixed by passing
+  dependencies through outputs instead.
