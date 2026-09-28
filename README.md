@@ -6,6 +6,7 @@ Hands-on Terraform projects on a personal AWS account. Each folder is a self-con
 |---|---|---|
 | [ec2-web](./ec2-web) | Single public EC2 running nginx behind a security group | providers, variables and tfvars, data sources (AMI lookup), user_data, outputs, `terraform-aws-modules/vpc` |
 | [vpc-alb](./vpc-alb) | Two-tier network: ALB in public subnets, nginx EC2 in a private subnet, NAT gateway for egress | raw VPC resources, `count` and `cidrsubnet`, route tables and associations, NAT and EIP, SG to SG references, ALB, target group and listener, `depends_on`, `-replace`, destroy ordering |
+| [eks](./eks) | EKS cluster in Auto Mode on the shared `network` module, nodes scale from zero | IAM roles and trust policies, `for_each` policy attachments, `aws_eks_cluster` Auto Mode config, access entries instead of `aws-auth`, module reuse across projects |
 
 ## Conventions
 
