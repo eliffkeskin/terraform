@@ -5,5 +5,5 @@ output "bucket_name" {
 
 output "role_arn" {
   description = "Role Arn"
-  value       = aws_iam_openid_connect_provider.default.arn
+  value       = aws_iam_role.default_role.arn
 }
