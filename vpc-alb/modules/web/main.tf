@@ -10,10 +10,10 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "web" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.web-sg.id]
-  subnet_id =var.private_subnet_ids[0]
+  subnet_id              = var.private_subnet_ids[0]
 
   user_data = file("${path.module}/user_data.sh")
 
@@ -32,7 +32,7 @@ resource "aws_lb" "alb" {
 
   enable_deletion_protection = true
 
- 
+
   tags = {
     Name = "alb"
   }
@@ -55,7 +55,7 @@ resource "aws_lb_listener" "web" {
   load_balancer_arn = aws_lb.alb.arn
   port              = "80"
   protocol          = "HTTP"
-  
+
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.alb-target-group.arn
@@ -64,51 +64,51 @@ resource "aws_lb_listener" "web" {
 
 
 resource "aws_security_group" "alb-sg" {
-    name = "alb-sg"
-    description = "ALB security group"
-    vpc_id = var.vpc_id
-    
-    ingress {
-        from_port = 80
-        to_port = 80
-        protocol = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
-    
-    egress {
-        from_port = 0
-        to_port = 0
-        protocol = "-1"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
+  name        = "alb-sg"
+  description = "ALB security group"
+  vpc_id      = var.vpc_id
 
-    tags = {
-        Name = "alb-sg"
-    }
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "alb-sg"
+  }
 }
 
 resource "aws_security_group" "web-sg" {
-    name = "web-sg"
-    description = "Web security group"
-    vpc_id = var.vpc_id
-    
-    ingress {
-        from_port = 80
-        to_port = 80
-        protocol = "tcp"
-        security_groups = [aws_security_group.alb-sg.id]
-    }
-    
-    egress {
-        from_port = 0
-        to_port = 0
-        protocol = "-1"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
+  name        = "web-sg"
+  description = "Web security group"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
+    security_groups = [aws_security_group.alb-sg.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
 
-    tags = {
-        Name = "web-sg"
-    }
+  tags = {
+    Name = "web-sg"
+  }
 }
 

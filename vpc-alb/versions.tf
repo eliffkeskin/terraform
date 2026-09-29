@@ -9,9 +9,9 @@ terraform {
   required_version = ">= 1.2"
 
   backend "s3" {
-    bucket = "elif-tfstate-5247"
-    key = "vpc-alb/terraform.tfstate"
-    region = "eu-central-1"
+    bucket       = "elif-tfstate-5247"
+    key          = "vpc-alb/terraform.tfstate"
+    region       = "eu-central-1"
     use_lockfile = true
   }
 }
