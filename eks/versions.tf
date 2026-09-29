@@ -7,6 +7,13 @@ terraform {
   }
 
   required_version = ">= 1.2"
+
+    backend "s3" {
+    bucket = "elif-tfstate-xxx"
+    key = "eks/terraform.tfstate"
+    region = "eu-central-1"
+    use_lockfile = true
+  }
 }
 
 provider "aws" {

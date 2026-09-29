@@ -24,6 +24,6 @@ Hands-on Terraform projects on a personal AWS account. Each folder is a self-con
 
 - [x] ec2-web: first apply, SG rules, user_data
 - [x] vpc-alb: private subnet, NAT, ALB, health checks
-- [ ] Refactor vpc-alb into `modules/network` and `modules/web`, S3 remote state with lockfile
+- [x] Refactor vpc-alb and eks into `modules/network` and `modules/web`, S3 remote state with lockfile
 - [x] EKS cluster (Auto Mode) with Pod Identity, ArgoCD as an EKS capability
 - [ ] GitHub Actions pipeline: fmt, validate, tflint, plan on PR, apply on main via OIDC
