@@ -4,7 +4,7 @@ Creates the S3 bucket that holds the Terraform state of every other project in t
 
 ## What it creates
 
-- S3 bucket `elif-tfstate-xxx` in eu-central-1
+- S3 bucket `elif-tfstate-5247` in eu-central-1
 - Versioning enabled, so a corrupted state can be rolled back to a previous version
 - All four public access block settings on
 - Server-side encryption (AES256) by default

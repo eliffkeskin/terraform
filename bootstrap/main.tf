@@ -13,23 +13,23 @@ provider "aws" {
   region = "eu-central-1"
 }
 
-resource "aws_s3_bucket" "elif-tfstate-xxx" {
-  bucket = "elif-tfstate-xxx"
+resource "aws_s3_bucket" "elif-tfstate-5247" {
+  bucket = "elif-tfstate-5247"
 
   tags = {
-    Name = "elif-tfstate-xxx"
+    Name = "elif-tfstate-5247"
   }
 }
 
-resource "aws_s3_bucket_versioning" "elif-tfstate-xxx-versioning" {
-  bucket = aws_s3_bucket.elif-tfstate-xxx.id
+resource "aws_s3_bucket_versioning" "elif-tfstate-5247-versioning" {
+  bucket = aws_s3_bucket.elif-tfstate-5247.id
   versioning_configuration {
     status = "Enabled"
   }
 }
 
-resource "aws_s3_bucket_public_access_block" "elif-tfstate-xxx-public-access-block" {
-  bucket = aws_s3_bucket.elif-tfstate-xxx.id
+resource "aws_s3_bucket_public_access_block" "elif-tfstate-5247-public-access-block" {
+  bucket = aws_s3_bucket.elif-tfstate-5247.id
 
   block_public_acls       = true
   block_public_policy     = true
@@ -38,8 +38,8 @@ resource "aws_s3_bucket_public_access_block" "elif-tfstate-xxx-public-access-blo
 }
 
 
-resource "aws_s3_bucket_server_side_encryption_configuration" "elif-tfstate-xxx-server-side-encryption-configuration" {
-  bucket = aws_s3_bucket.elif-tfstate-xxx.id
+resource "aws_s3_bucket_server_side_encryption_configuration" "elif-tfstate-5247-server-side-encryption-configuration" {
+  bucket = aws_s3_bucket.elif-tfstate-5247.id
 
   rule {
     apply_server_side_encryption_by_default {
