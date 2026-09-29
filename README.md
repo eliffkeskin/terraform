@@ -13,6 +13,7 @@ Hands-on Terraform projects on a personal AWS account. Each folder is a self-con
 - One folder per project, `versions.tf` / `variables.tf` / `outputs.tf` plus topic files (`network.tf`, `security.tf`, `compute.tf`, `alb.tf`)
 - Local state during the learning phase; remote state (S3 backend) is introduced in the next project
 - Region `eu-central-1`, Free Tier instance types, everything destroyed after each session
+- CI runs terraform fmt, init, validate and plan on every push and PR; apply is manual until an environment gate is added
 
 ## Requirements
 
@@ -26,4 +27,4 @@ Hands-on Terraform projects on a personal AWS account. Each folder is a self-con
 - [x] vpc-alb: private subnet, NAT, ALB, health checks
 - [x] Refactor vpc-alb and eks into `modules/network` and `modules/web`, S3 remote state with lockfile
 - [x] EKS cluster (Auto Mode) with Pod Identity, ArgoCD as an EKS capability
-- [ ] GitHub Actions pipeline: fmt, validate, tflint, plan on PR, apply on main via OIDC
+- [x] GitHub Actions pipeline: fmt, validate, tflint, plan on PR, apply on main via OIDC
